@@ -1,0 +1,51 @@
+{% extends "layout.html" %} {% load static %} {% block title %} Products - LOGO
+{% endblock %} {% block extra_head %}
+<link rel="stylesheet" href="{% static 'pages/product.css' %}" />
+{% endblock %} {% block content %}
+<main>
+  <section class="container">
+    <div class="product-gallery">
+      <img
+        src="{{ product.images.first.image.url }}"
+        alt="{{ product.images.first.alt }}"
+      />
+    </div>
+    <div class="product-info">
+      <h1>{{ product.title }}</h1>
+      <h3>{{ product.slug }}</h3>
+      <p class="price">Rs. {{ product.price }}</p>
+      <p>{{ product.description|linebreaks }}</p>
+      <button type="button">
+        <a href="{% url 'cart:cart_add' product.id %}">Add to Cart</a>
+      </button>
+    </div>
+  </section>
+  <section class="related-products-section">
+    <div class="related-products">
+      <div class="section-header">
+        <hr />
+        <h2>Frequently Bought Together</h2>
+      </div>
+      <div class="grid">
+        {% for related_product in related_products %}
+        <div class="grid-item">
+          <div class="product-gallery">
+            <img
+              src="{{ related_product.images.first.image.url }}"
+              alt="{{ related_product.images.first.alt }}"
+            />
+          </div>
+          <button type="button">
+            <a href="{% url 'products:product' related_product.slug %}">
+              Quick View
+            </a>
+          </button>
+          <h2>{{ related_product.name }}</h2>
+          <p>Rs. {{ related_product.price }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}

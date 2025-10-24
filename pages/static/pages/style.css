@@ -1,0 +1,251 @@
+.hero {
+  width: 100%;
+  height: 100vh;
+  background: url("../images/hero.webp") no-repeat center center;
+  background-size: cover;
+  position: relative;
+}
+
+.hero > div > button {
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: inherit;
+  border: 2px solid white;
+  color: white;
+  padding: 10px 20px;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 0px;
+}
+
+.hero > div > button:hover {
+  background: white;
+  color: black;
+  transition: 0.3s;
+}
+
+.categories {
+  width: 100%;
+  text-align: center;
+  margin-top: 72px;
+  padding: 20px;
+  border-top: 2px solid #d3d3d3;
+  border-bottom: 2px solid #d3d3d3;
+  position: relative;
+}
+
+.categories:nth-child(3) {
+  border-top: none;
+}
+
+.categories h1 {
+  font-size: 32px;
+  margin: 32px 0;
+  font-weight: bold;
+  letter-spacing: 4px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+.grid-item {
+  text-align: center;
+  max-width: 100%;
+  position: relative;
+}
+
+.grid-item img {
+  width: 100%;
+  height: auto;
+}
+
+.grid-item h2 {
+  margin: 10px 0 5px 0;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 1.4px;
+}
+
+.grid-item p {
+  margin: 0;
+  font-size: 16px;
+  color: #555;
+}
+
+.grid-item .sale-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #000;
+  color: #fff;
+  padding: 5px 10px;
+}
+
+.grid-item .sale-price {
+  text-decoration-line: line-through;
+  font-size: 12px;
+}
+
+.grid-item > button {
+  width: 100%;
+  padding: 8px 0;
+  margin-top: 10px;
+  position: absolute;
+  bottom: 60px;
+  left: 0;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 0px;
+  opacity: 0;
+  transform: translateY(10%);
+  transition: all ease-in-out 300ms;
+}
+
+.grid-item > button a {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.grid-item:hover > button {
+  opacity: 1;
+  transform: translateY(0%);
+}
+
+.animated-btn {
+  display: inline-block;
+  position: relative;
+  margin-top: 20px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.animated-btn button {
+  background: transparent;
+  border: 2px solid black;
+  color: black;
+  padding: 10px 20px;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 0px;
+  transition: all 0.3s ease;
+}
+
+.animated-btn a {
+  text-decoration: none;
+  color: black;
+  z-index: 2;
+}
+
+.bg-top {
+  background-color: #000;
+  color: #fff;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform: translateY(100%);
+  opacity: 0;
+  z-index: -1;
+}
+
+.animated-btn:hover .bg-top {
+  transform: translateY(0%) scale(1.001);
+  transition: all 300ms ease;
+  opacity: 1;
+  border-radius: 0;
+}
+
+.animated-btn:hover a {
+  color: #fff;
+  transition: all 300ms ease;
+}
+
+.women-section {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+}
+
+.women-section .image-container {
+  width: 100%;
+  height: 100%;
+}
+
+.women-section .image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.women-section .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #00000025;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  z-index: 2;
+}
+
+.overlay h1 {
+  text-transform: uppercase;
+  font-size: 64px;
+  margin-bottom: 20px;
+  letter-spacing: 4px;
+  line-height: 1;
+}
+
+.overlay h2 {
+  text-transform: uppercase;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.overlay button {
+  background: inherit;
+  border: 2px solid white;
+  color: white;
+  padding: 10px 20px;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 0px;
+}
+
+.overlay button a {
+  color: white;
+}
+
+.overlay .bg-top {
+  background-color: #ffffff25;
+  color: #000;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform: translateY(100%);
+  opacity: 0;
+  z-index: -1;
+}
+
+.overlay button:hover .bg-top {
+  transform: translateY(0%) scale(1.001);
+  transition: all 300ms ease;
+  opacity: 1;
+  border-radius: 0;
+}

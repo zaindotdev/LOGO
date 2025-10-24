@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}LOGO{% endblock %}</title>
+
+    <!-- Remix Icon CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'pages/style.css' %}" />
+
+    {% block extra_head %}{% endblock %}
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div>
+          <a href="{% url 'pages:home' %}">
+            <h1>LOGO</h1>
+          </a>
+        </div>
+
+        <ul>
+          <li><a href="{% url 'pages:home' %}">New In</a></li>
+          <li><a href="{% url 'pages:home' %}#men">Men</a></li>
+          <li><a href="{% url 'pages:home' %}#women">Women</a></li>
+          <li><a href="{% url 'pages:home' %}#kids">Kids</a></li>
+          <li><a href="{% url 'pages:home' %}#fragrance">Fragrance</a></li>
+          <li><a href="{% url 'pages:home' %}#accessories">Accessories</a></li>
+          <li><a href="{% url 'pages:home' %}#last-pair">Last Pair</a></li>
+        </ul>
+
+        <ul>
+          <li>
+            <a href="#"><i class="ri-user-line"></i></a>
+            <p class="tooltip">Account</p>
+          </li>
+          <li>
+            <a href="#"><i class="ri-search-line"></i></a>
+            <p class="tooltip">Search</p>
+          </li>
+          <li>
+            <a href="{% url 'cart:cart_view' %}"
+              ><i class="ri-shopping-bag-line"></i
+            ></a>
+            <p class="tooltip">Cart</p>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>{% block content %}{% endblock %}</main>
+
+    <footer>
+      <div class="footer-content">
+        <h3>LOGO</h3>
+        <ul>
+          <li>
+            <a href="#">About Us</a>
+          </li>
+          <li>
+            <a href="#">Contact Us</a>
+          </li>
+          <li>
+            <a href="#">Privacy Policy</a>
+          </li>
+          <li>
+            <a href="#">Terms & Conditions</a>
+          </li>
+        </ul>
+        <ul class="socials">
+          <li>
+            <a href="#"><i class="ri-facebook-fill"></i></a>
+            <p class="tooltip">Facebook</p>
+          </li>
+          <li>
+            <a href="#"><i class="ri-twitter-x-fill"></i></a>
+            <p class="tooltip">X</p>
+          </li>
+          <li>
+            <a href="#"><i class="ri-instagram-fill"></i></a>
+            <p class="tooltip">Instagram</p>
+          </li>
+          <li>
+            <a href="#"><i class="ri-linkedin-fill"></i></a>
+            <p class="tooltip">LinkedIn</p>
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2025 LOGO. All rights reserved.</p>
+      </div>
+    </footer>
+
+    {% block extra_scripts %}
+    {% endblock %}
+  </body>
+</html>

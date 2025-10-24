@@ -1,0 +1,154 @@
+{% extends 'layout.html' %} {% load static %} {% block title %} Home - LOGO {%endblock %} 
+{% block content %}
+<main>
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div>
+      <button type="button">
+        <a href="">Shop Now</a>
+      </button>
+    </div>
+  </section>
+
+  <!-- NEW IN SECTION -->
+  {% if new_in %}
+  <section id="new-in" class="categories">
+    <h1>New In</h1>
+    <div class="grid">
+      {% for product in new_in %}
+      <div class="grid-item">
+        {% if product.on_sale %}
+        <div class="sale-container">
+          <span class="sale-badge">Sale</span>
+        </div>
+        {% endif %}
+        <div class="product-gallery">
+          <img
+            src="{{ product.images.first.image.url }}"
+            alt="{{ product.images.first.alt }}"
+          />
+        </div>
+        <button type="button">
+          <a href="{% url 'products:product' product.slug %}">Quick View</a>
+        </button>
+        <h2>{{ product.title }}</h2>
+        <p>
+          Rs. {% if product.on_sale %}
+          <span style="text-decoration: line-through">{{ product.price }}</span>
+          <span>{{ product.discounted_price }}</span>
+          {% else %}
+          <span>{{ product.price }}</span>
+          {% endif %}
+        </p>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="animated-btn">
+      <button type="button">
+        <a href="{% url 'pages:products' 'new-in' %}">View All</a>
+      </button>
+      <div class="bg-top"></div>
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- MEN SECTION -->
+  {% if men %}
+  <section id="men" class="categories">
+    <h1>Men Collection</h1>
+    <div class="grid">
+      {% for product in men %}
+      <div class="grid-item">
+        {% if product.on_sale %}
+        <div class="sale-container">
+          <span class="sale-badge">Sale</span>
+        </div>
+        {% endif %}
+        <img
+          src="{{ product.images.first.image.url }}"
+          alt="{{ product.images.first.alt }}"
+        />
+        <button type="button">
+          <a href="{% url 'products:product' product.slug %}">Quick View</a>
+        </button>
+        <h2>{{ product.title }}</h2>
+        <p>
+          Rs. {% if product.on_sale %}
+          <span style="text-decoration: line-through">{{ product.price }}</span>
+          <span>{{ product.discounted_price }}</span>
+          {% else %}
+          <span>{{ product.price }}</span>
+          {% endif %}
+        </p>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="animated-btn">
+      <button type="button">
+        <a href="{% url 'pages:products' 'men' %}">View All</a>
+      </button>
+      <div class="bg-top"></div>
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- WOMEN SECTION -->
+  {% if women %}
+  <section id="women" class="women-section">
+    <div class="image-container">
+      <img
+        src="{% static 'images/women-section.webp' %}"
+        alt="Women Collection"
+      />
+    </div>
+    <div class="overlay">
+      <h2>Women Footwear</h2>
+      <h1>Opia By LOGO</h1>
+      <div class="animated-btn">
+        <button type="button">
+          <a href="">Shop Now</a>
+        </button>
+        <div class="bg-top"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="categories">
+    <h1>Women Collection</h1>
+    <div class="grid">
+      {% for product in women %}
+      <div class="grid-item">
+        {% if product.on_sale %}
+        <div class="sale-container">
+          <span class="sale-badge">Sale</span>
+        </div>
+        {% endif %}
+        <img
+          src="{{ product.images.first.image.url }}"
+          alt="{{ product.images.first.alt }}"
+        />
+        <button type="button">
+          <a href="{% url 'products:product' product.slug %}">Quick View</a>
+        </button>
+        <h2>{{ product.title }}</h2>
+        <p>
+          Rs. {% if product.on_sale %}
+          <span style="text-decoration: line-through">{{ product.price }}</span>
+          <span>{{ product.discounted_price }}</span>
+          {% else %}
+          <span>{{ product.price }}</span>
+          {% endif %}
+        </p>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="animated-btn">
+      <button type="button">
+        <a href="{% url 'pages:products' 'women' %}">View All</a>
+      </button>
+      <div class="bg-top"></div>
+    </div>
+  </section>
+  {% endif %}
+</main>
+{% endblock %}

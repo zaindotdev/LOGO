@@ -1,0 +1,113 @@
+{% extends "layout.html" %} {% load static %} {% block extra_head %}
+<link rel="stylesheet" href="{% static 'cart/cart.css' %}" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{% endblock %} {% block content %}
+<main>
+  <section class="container">
+    <h1>Cart</h1>
+
+    {% if cart.items.exists %}
+    <table id="cart-table">
+      <thead>
+        <tr>
+          <th>Sr.</th>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Total</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in cart.items.all %}
+        <tr data-item-id="{{ item.id }}">
+          <td>{{ forloop.counter }}.</td>
+          <td class="product-info">
+            <img
+              src="{{ item.product.images.first.image.url }}"
+              alt="{{ item.product.title }}"
+              width="70"
+              height="70"
+              style="object-fit: contain"
+            />
+            <p>{{ item.product.title }}</p>
+          </td>
+          <td class="quantity">
+            <input
+              type="number"
+              min="1"
+              value="{{ item.quantity }}"
+              data-item-id="{{ item.id }}"
+              class="quantity-input"
+            />
+          </td>
+          <td>Rs. {{ item.product.price }}</td>
+          <td class="item-total">Rs. {{ item.total_price | floatformat }}</td>
+          <td>
+            <a href="{% url 'cart:remove_from_cart' item.id %}">
+              <button class="remove-button" data-item-id="{{ item.id }}">
+                <i class="ri-delete-bin-line"></i>
+              </button>
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <div class="cart-summary">
+      <p class="subtotal">
+        Subtotal:
+        <span class="subtotal-value">Rs. {{ subtotal|floatformat }}</span>
+      </p>
+      <p class="shipping">Shipping: <span>Free</span></p>
+      <a href="{% url 'orders:checkout' %}" class="checkout-button">
+        Proceed to Checkout
+      </a>
+    </div>
+
+    {% else %}
+    <p class="empty-message">Your cart is currently empty.</p>
+    <button class="continue-shopping">
+      <a href="{% url 'pages:home' %}">
+        <i class="ri-arrow-right-line"></i> Continue Shopping
+      </a>
+    </button>
+    {% endif %}
+  </section>
+</main>
+
+<script>
+  $(document).ready(function () {
+    $(".quantity-input").on("change", function () {
+      const itemId = $(this).data("item-id");
+      const quantity = $(this).val();
+      const row = $(this).closest("tr");
+
+      $.ajax({
+        url: "{% url 'cart:update_cart_item' %}",
+        type: "POST",
+        data: {
+          item_id: itemId,
+          quantity: quantity,
+          csrfmiddlewaretoken: "{{ csrf_token }}",
+        },
+        success: function (response) {
+          if (response.success) {
+            row.find(".item-total").text("Rs. " + response.total_price);
+            $(".subtotal .subtotal-value").fadeOut(150, function () {
+              $(this)
+                .text("Rs. " + response.subtotal)
+                .fadeIn(150);
+            });
+          } else {
+            alert(response.error || "Failed to update item.");
+          }
+        },
+        error: function () {
+          alert("Something went wrong!");
+        },
+      });
+    });
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "layout.html" %} {% load static %} {% block title %} Products - LOGO
+{% endblock %} {% block extra_head %}
+<link rel="stylesheet" href="{% static 'pages/product.css' %}" />
+{% endblock %} {% block content %}
+<main class="products-page">
+  <section class="container">
+    <div class="grid">
+      {% for product in products %}
+      <div class="grid-item">
+        <div class="product-gallery">
+          <img src="{{ product.images.first.image.url }}" alt="{{ product.images.first.alt }}" />
+        </div>
+        <button type="button">
+          <a href="{% url 'products:product' product.slug %}"> Quick View </a>
+        </button>
+        <h2>{{ product.title }}</h2>
+        <p>Rs. {{ product.price }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+</main>
+{% endblock %}

@@ -1,0 +1,110 @@
+.container {
+  padding: 20px;
+  min-height: 100vh;
+  position: relative;
+}
+
+.container h1 {
+  font-size: 32px;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+  font-weight: 400;
+}
+
+.empty-message {
+  text-align: center;
+  font-size: 16px;
+  margin-top: 32px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+}
+
+th,
+td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f4f4f4;
+  font-weight: 600;
+}
+
+.quantity > input {
+  width: 60px;
+  padding: 5px;
+  text-align: center;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  outline: none;
+}
+
+.remove-button {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 0;
+  font-weight: 100;
+}
+
+.remove-button:hover {
+  background-color: #e60000;
+}
+
+.continue-shopping{
+  border-radius: 0;
+  padding: 10px 20px;
+  margin: 20px auto;
+  display: block;
+  font-weight: 300;
+}
+
+.continue-shopping:hover{
+  background-color: #333;
+}
+
+.cart-summary {
+  font-weight: 400;
+  font-size: 20px;
+  margin-top: 24px;
+  margin-left: auto;
+  display: block;
+  max-width: 400px;
+  border: 1px solid #ddd;
+  padding: 18px;
+}
+
+.cart-summary .subtotal {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.cart-summary p {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.cart-summary .checkout-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #000;
+  color: white;
+  text-decoration: none;
+  margin-top: 18px;
+  font-size: 18px;
+  width: 100%;
+  text-align: center;
+}
+
+.cart-summary .checkout-button:hover {
+  background-color: #333;
+}
