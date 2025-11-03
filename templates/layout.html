@@ -38,19 +38,32 @@
         </ul>
 
         <ul>
-          <li>
-            <a href="#"><i class="ri-user-line"></i></a>
-            <p class="tooltip">Account</p>
-          </li>
-          <li>
+          <li class="search-icon">
             <a href="#"><i class="ri-search-line"></i></a>
-            <p class="tooltip">Search</p>
+            <div class="search-dropdown">
+              <input type="text" placeholder="Search..." />
+            </div>
           </li>
-          <li>
-            <a href="{% url 'cart:cart_view' %}"
-              ><i class="ri-shopping-bag-line"></i
-            ></a>
-            <p class="tooltip">Cart</p>
+          <li class="user-icon">
+            <a href="#"><i class="ri-user-line"></i></a>
+            <div class="modal">
+              {% if user.is_authenticated %}
+              <div>
+                <p>Welcome, {{ user.username }}</p>
+                <a href="{% url 'accounts:profile' %}">Profile</a>
+                <a href="{% url 'accounts:profile' %}">Track Orders</a>
+              </div>
+              {% else %}
+              <a href="{% url 'accounts:login' %}">Login</a>
+              <a href="{% url 'accounts:register' %}">Register</a>
+              {% endif %}
+            </div>
+          </li>
+          <li class="cart-icon">
+            <a href="{% url 'cart:cart_view' %}">
+              <i class="ri-shopping-bag-line"></i>
+            </a>
+            <span class="cart-count">{{ cart_count|default:0 }}</span>
           </li>
         </ul>
       </nav>
@@ -100,7 +113,6 @@
       </div>
     </footer>
 
-    {% block extra_scripts %}
-    {% endblock %}
+    {% block extra_scripts %} {% endblock %}
   </body>
 </html>

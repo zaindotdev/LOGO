@@ -1,14 +1,66 @@
 {% extends "layout.html" %}
 {% load static %}
+
 {% block extra_head %}
 <link rel="stylesheet" href="{% static 'orders/checkout.css' %}" />
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://js.stripe.com/v3/"></script>
 {% endblock %}
+
 {% block content %}
 <main>
   <section class="container">
     <h1>Checkout</h1>
-    <p>This is the checkout page.</p>
+    <form id="payment-form">
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="full_name" required placeholder="Enter your full name" />
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="email" required placeholder="Enter your email" />
+      </div>
+      <div class="form-group">
+        <label>Address</label>
+        <textarea id="address" required placeholder="Enter your address"></textarea>
+      </div>
+
+      <div id="card-element"><!-- Stripe card element --></div>
+      <button id="submit">Place Order</button>
+      <div id="error-message"></div>
+    </form>
   </section>
 </main>
+{% endblock %}
+
+{% block scripts %}
+<script>
+$(document).ready(function () {
+  var stripe = Stripe("{{ STRIPE_PUBLIC_KEY }}"); // from Django context or template
+
+  $(".buy-now-btn").on("click", function () {
+    const productId = $(this).closest(".product").data("product-id");
+
+    $.ajax({
+      url: "/create-checkout-session/", // Django endpoint
+      method: "POST",
+      data: {
+        product_id: productId,
+        csrfmiddlewaretoken: "{{ csrf_token }}", // for Django CSRF
+      },
+      success: function (response) {
+        if (response.sessionId) {
+          stripe.redirectToCheckout({ sessionId: response.sessionId });
+        } else {
+          alert("Failed to create Stripe session.");
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error("Stripe Checkout error:", error);
+        alert("Something went wrong. Please try again.");
+      },
+    });
+  });
+});
+</script>
 {% endblock %}

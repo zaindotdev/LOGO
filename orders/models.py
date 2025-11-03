@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from products.models import Product, ProductVariant
+from accounts.models import Address
 
 class Order(models.Model):
     STATUS_CHOICES = [
@@ -12,7 +13,7 @@ class Order(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL)
     full_name = models.CharField(max_length=255)
     email = models.EmailField()
-    address = models.TextField()
+    address = models.ForeignKey(Address, on_delete=models.SET_NULL, null=True, blank=True)
     total = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.CharField(max_length=30, choices=STATUS_CHOICES, default='created')
     created_at = models.DateTimeField(auto_now_add=True)

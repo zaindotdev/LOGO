@@ -13,10 +13,12 @@
     <div class="product-info">
       <h1>{{ product.title }}</h1>
       <h3>{{ product.slug }}</h3>
-      <p class="price">Rs. {{ product.price }}</p>
+      <p class="price">Rs. {% if product.on_sale %}
+        <del>{{ product.price }}</del> {{ product.discounted_price }}
+        {% endif %}</p>
       <p>{{ product.description|linebreaks }}</p>
       <button type="button">
-        <a href="{% url 'cart:cart_add' product.id %}">Add to Cart</a>
+        <a href="{% url 'cart:cart_add' product.id %}" style='font-weight: 400;'>Add to Cart</a>
       </button>
     </div>
   </section>

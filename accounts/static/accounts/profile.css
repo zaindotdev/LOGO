@@ -1,0 +1,87 @@
+main{
+    min-height: 100vh;
+    padding: 24px;
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+.profile-header{
+    text-align: left;
+    margin-bottom: 24px;
+    font-weight: 400;
+    letter-spacing: 2px;
+}
+
+.profile-header button{
+    float: right;
+    padding: 8px 16px;
+    color: white;
+    border: none;
+    border-radius: 0px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.orders-section{
+    margin-top: 54px;
+}
+
+.orders-section h2{
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 16px;
+}
+
+.order-card{
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    padding: 16px;
+    margin-bottom: 20px;
+}
+
+.order-card h3{
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 12px;
+}
+
+.order-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.order-items{
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.order-items button{
+    padding: 8px 16px;
+    color: #000;
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 0px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 400;
+    transition: border 0.2s linear;
+}
+
+.order-items button:hover{
+    border: 2px solid #555;
+}
+
+.cancel-btn[disabled]{
+    background-color: #fff;
+    color: #666;
+    cursor: not-allowed;
+}
+
+.cancel-btn[disabled]:hover{
+    border: 1px solid #ccc;
+}

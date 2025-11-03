@@ -1,0 +1,60 @@
+{% extends "layout.html" %} {% load static %} {% block title %} Profile - LOGO
+{% endblock %} {% block extra_head %}
+<link rel="stylesheet" href="{% static 'accounts/profile.css' %}" />
+{% endblock %} {% block content %}
+<main class="container profile-container">
+  <section class="profile-header">
+    <div>
+      <div>
+        <h1>Welcome, {{ user.username }}</h1>
+        <p>Email: {{ user.email }}</p>
+      </div>
+      <button>
+        <a href="{% url 'accounts:address_view' %}">Manage Address</a>
+      </button>
+    </div>
+    <form method="post" action="{% url 'accounts:logout' %}">
+      {% csrf_token %}
+      <button type="submit" class="logout-button">Logout</button>
+    </form>
+  </section>
+
+  <section class="orders-section">
+    <h2>Your Orders</h2>
+    {% if orders %}
+    <ul class="orders-list">
+      {% for order in orders %}
+      <li class="order-card">
+        <div class="order-header">
+          <span>Order #{{ order.id }}</span>
+          <span>Status: <strong>{{ order.get_status_display }}</strong></span>
+          <span>Date: {{ order.created_at|date:"Y-m-d H:i" }}</span>
+          <span>Total: Rs. {{ order.total }}</span>
+        </div>
+        <ul class="order-items">
+          {% for item in order.items.all %}
+          <li class="order-item">
+            {{ item.product.name }} {% if item.variant %} ({{ item.variant }})
+            {% endif %} - {{ item.quantity }} x Rs. {{ item.price }}
+          </li>
+          {% endfor %}
+          <li>
+            <button
+              class="cancel-btn"
+              disabled="{% if order.status == 'cancelled' %}true{% endif %}"
+            >
+              <a href="{% url 'orders:cancel_order' order.id %}"
+                >Cancel Order</a
+              >
+            </button>
+          </li>
+        </ul>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>You have no orders yet.</p>
+    {% endif %}
+  </section>
+</main>
+{% endblock %}

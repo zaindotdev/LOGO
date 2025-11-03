@@ -1,0 +1,145 @@
+main{
+    min-height: 100vh;
+}
+
+.address-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+}
+
+.address-section li {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    border-radius: 6px;
+    padding: 10px 16px;
+    margin-bottom: 10px;
+}
+
+.address-section li input[type="checkbox"] {
+    display: inline-block;
+    width: fit-content;
+    height: fit-content;
+    accent-color: #000;
+    pointer-events: none;
+}
+
+.address-section li p {
+    margin: 0;
+    font-size: 15px;
+    color: #222;
+}
+
+.address-section li strong {
+    color: #000;
+    font-weight: 500;
+    margin-left: 6px;
+    font-size: 14px;
+    font-weight: 600;
+}
+.address-section{
+    margin-bottom: 20px;
+}
+
+.address-section h1{
+    font-size: 24px;
+    letter-spacing: 2px;
+    font-weight: 400;
+    margin-bottom: 16px;
+}
+
+.address-section form{
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 16px;
+    border-radius: 8px;
+    display: none;
+}
+
+.address-section input{
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    outline:none;
+    border: 1px solid #ccc;
+    border-radius: 0px;
+}
+
+.address-section label{
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 0.5;
+}
+
+.address-section button{
+    width: 100%;
+    padding: 10px;
+    color: white;
+    border: none;
+    border-radius: 0px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 400;
+    margin-top: 12px;
+}
+
+.address-section button:hover{
+    background-color: #555;
+}
+
+hr{
+    margin: 20px 0;
+    border: none;
+    border-top: 1px solid #444;
+    width: 100%;
+}
+
+.address-section .default-address{
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.address-section h2{
+    font-size: 20px;
+    margin-top: 10px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+ul{
+    padding-left: 20px;
+}
+
+li{
+    margin-bottom: 8px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+.add-new-address{ 
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-new-address button{
+    padding: 10px 20px;
+    width: fit-content;
+    font-size: 16px;
+    font-weight: 400;
+    border: none;
+    border-radius: 0px;
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    margin: 0 auto;
+}

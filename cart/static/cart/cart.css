@@ -93,16 +93,17 @@ th {
   margin-bottom: 10px;
 }
 
-.cart-summary .checkout-button {
+.checkout-button {
   display: inline-block;
   padding: 10px 20px;
-  background-color: #000;
   color: white;
   text-decoration: none;
   margin-top: 18px;
   font-size: 18px;
   width: 100%;
+  border-radius: 0px;
   text-align: center;
+  font-weight: 400;
 }
 
 .cart-summary .checkout-button:hover {

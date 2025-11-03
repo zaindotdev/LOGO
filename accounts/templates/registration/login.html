@@ -1,14 +1,23 @@
 {% extends "layout.html" %}
-
+{% load static %}
 {% block title %}
     Login - Ecommerce Site
+{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'accounts/login.css' %}">
 {% endblock %}
 
 {% block content %}
 <main class="container">
     <h1>Login</h1>
     <form method="post">
+        {% csrf_token %}
+        <div class='form-group'>
+            {{ form.as_p }}
+        </div>
         <button type="submit">Login</button>
+        <p>Don't have an account? <a href="{% url 'accounts:register' %}">Register</a></p>
     </form>
 </main>
 {% endblock %}

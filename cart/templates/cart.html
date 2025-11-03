@@ -1,7 +1,13 @@
-{% extends "layout.html" %} {% load static %} {% block extra_head %}
+{% extends "layout.html" %}
+{% load static %}
+
+{% block extra_head %}
 <link rel="stylesheet" href="{% static 'cart/cart.css' %}" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-{% endblock %} {% block content %}
+<script src="https://js.stripe.com/v3/"></script>
+{% endblock %}
+
+{% block content %}
 <main>
   <section class="container">
     <h1>Cart</h1>
@@ -41,8 +47,14 @@
               class="quantity-input"
             />
           </td>
-          <td>Rs. {{ item.product.price }}</td>
-          <td class="item-total">Rs. {{ item.total_price | floatformat }}</td>
+          <td>
+            {% if item.product.on_sale %}
+              Rs. {{ item.product.discounted_price|floatformat }}
+            {% else %}
+              Rs. {{ item.product.price|floatformat }}
+            {% endif %}
+          </td>
+          <td class="item-total">Rs. {{ item.total_price|floatformat }}</td>
           <td>
             <a href="{% url 'cart:remove_from_cart' item.id %}">
               <button class="remove-button" data-item-id="{{ item.id }}">
@@ -54,15 +66,20 @@
         {% endfor %}
       </tbody>
     </table>
+
     <div class="cart-summary">
       <p class="subtotal">
         Subtotal:
         <span class="subtotal-value">Rs. {{ subtotal|floatformat }}</span>
       </p>
       <p class="shipping">Shipping: <span>Free</span></p>
-      <a href="{% url 'orders:checkout' %}" class="checkout-button">
+      <button
+        type="button"
+        class="checkout-button"
+        data-cart-id="{{ cart.id }}"
+      >
         Proceed to Checkout
-      </a>
+      </button>
     </div>
 
     {% else %}
@@ -78,6 +95,7 @@
 
 <script>
   $(document).ready(function () {
+    // Quantity update logic
     $(".quantity-input").on("change", function () {
       const itemId = $(this).data("item-id");
       const quantity = $(this).val();
@@ -105,6 +123,34 @@
         },
         error: function () {
           alert("Something went wrong!");
+        },
+      });
+    });
+
+    // Stripe Checkout logic
+    const stripe = Stripe("{{ STRIPE_PUBLIC_KEY }}");
+
+    $(".checkout-button").on("click", function (e) {
+      e.preventDefault();
+      const cartId = $(this).data("cart-id");
+
+      $.ajax({
+        url: "{% url 'orders:create_checkout_session' %}",
+        type: "POST",
+        data: {
+          cart_id: cartId,
+          csrfmiddlewaretoken: "{{ csrf_token }}",
+        },
+        success: function (response) {
+          if (response.sessionId) {
+            stripe.redirectToCheckout({ sessionId: response.sessionId });
+          } else if (response.error) {
+            alert("Error: " + response.error);
+          }
+        },
+        error: function (xhr, status, error) {
+          console.error("Checkout error:", error);
+          window.location.href = "{% url 'accounts:address_view' %}?from=cart";
         },
       });
     });
