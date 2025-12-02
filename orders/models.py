@@ -17,6 +17,7 @@ class Order(models.Model):
     total = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.CharField(max_length=30, choices=STATUS_CHOICES, default='created')
     created_at = models.DateTimeField(auto_now_add=True)
+    payment_id = models.CharField(max_length=255, blank=True, null=True)  # for stripe
     payment_intent = models.CharField(max_length=255, blank=True, null=True)  # for stripe
 
 class OrderItem(models.Model):

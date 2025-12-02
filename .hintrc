@@ -1,0 +1,17 @@
+{
+  "extends": [
+    "development"
+  ],
+  "hints": {
+    "axe/structure": [
+      "default",
+      {
+        "list": "off",
+        "landmark": "off",
+      }
+    ],
+    "axe/color-contrast": "off",
+    "axe/label": "off",
+    "no-inline-styles": "off"
+  }
+}

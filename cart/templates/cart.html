@@ -95,7 +95,6 @@
 
 <script>
   $(document).ready(function () {
-    // Quantity update logic
     $(".quantity-input").on("change", function () {
       const itemId = $(this).data("item-id");
       const quantity = $(this).val();
@@ -127,30 +126,39 @@
       });
     });
 
-    // Stripe Checkout logic
     const stripe = Stripe("{{ STRIPE_PUBLIC_KEY }}");
 
     $(".checkout-button").on("click", function (e) {
-      e.preventDefault();
+      console.log("Checkout button clicked");
       const cartId = $(this).data("cart-id");
+      console.log("Cart ID:", cartId);
 
       $.ajax({
-        url: "{% url 'orders:create_checkout_session' %}",
+        url: "/orders/create-checkout-session/" + cartId + "/",
         type: "POST",
         data: {
-          cart_id: cartId,
           csrfmiddlewaretoken: "{{ csrf_token }}",
         },
         success: function (response) {
+          console.log("Response:", response);
           if (response.sessionId) {
-            stripe.redirectToCheckout({ sessionId: response.sessionId });
+            console.log("Redirecting to Stripe checkout...");
+            stripe.redirectToCheckout({ sessionId: response.sessionId })
+              .then(function(result) {
+                if (result.error) {
+                  alert("Stripe Error: " + result.error.message);
+                }
+              });
           } else if (response.error) {
             alert("Error: " + response.error);
+            if (response.redirect) {
+              window.location.href = response.redirect;
+            }
           }
         },
         error: function (xhr, status, error) {
-          console.error("Checkout error:", error);
-          window.location.href = "{% url 'accounts:address_view' %}?from=cart";
+          console.error("AJAX Error:", xhr.responseText);
+         window.location.href = xhr.responseJSON.redirect;
         },
       });
     });

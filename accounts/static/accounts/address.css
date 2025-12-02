@@ -125,14 +125,11 @@ li{
 
 .add-new-address{ 
     margin-top: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    text-align: center;
 }
 
 .add-new-address button{
-    padding: 10px 20px;
-    width: fit-content;
+    padding: 10px 20px; 
     font-size: 16px;
     font-weight: 400;
     border: none;
@@ -141,5 +138,4 @@ li{
     color: #fff;
     cursor: pointer;
     display: inline-block;
-    margin: 0 auto;
 }

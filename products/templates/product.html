@@ -2,19 +2,33 @@
 {% endblock %} {% block extra_head %}
 <link rel="stylesheet" href="{% static 'pages/product.css' %}" />
 {% endblock %} {% block content %}
-<main>
+<main class='products-page'>
   <section class="container">
     <div class="product-gallery">
+      <div class="img-carousel">
+        {% for image in product.images.all %}
       <img
-        src="{{ product.images.first.image.url }}"
-        alt="{{ product.images.first.alt }}"
+        src="{{ image.image.url }}"
+        alt="{{ image.alt }}"
+        class="gallery-image"
       />
+      {% endfor %}
+      </div>
+      <div class="image">
+        {% if product.images.exists %}
+        <img
+          src="{{ product.images.first.image.url }}"
+          alt="{{ product.images.first.alt }}"
+        />
+      {% endif %}
+      </div>
     </div>
     <div class="product-info">
       <h1>{{ product.title }}</h1>
       <h3>{{ product.slug }}</h3>
       <p class="price">Rs. {% if product.on_sale %}
-        <del>{{ product.price }}</del> {{ product.discounted_price }}
+        <del>{{ product.price }}</del> {{ product.discounted_price }} {% else %}
+        {{product.price}}
         {% endif %}</p>
       <p>{{ product.description|linebreaks }}</p>
       <button type="button">
@@ -22,32 +36,58 @@
       </button>
     </div>
   </section>
+  {% if related_products %}
+  
   <section class="related-products-section">
-    <div class="related-products">
-      <div class="section-header">
-        <hr />
-        <h2>Frequently Bought Together</h2>
-      </div>
-      <div class="grid">
-        {% for related_product in related_products %}
-        <div class="grid-item">
-          <div class="product-gallery">
-            <img
-              src="{{ related_product.images.first.image.url }}"
-              alt="{{ related_product.images.first.alt }}"
-            />
-          </div>
-          <button type="button">
-            <a href="{% url 'products:product' related_product.slug %}">
-              Quick View
-            </a>
-          </button>
-          <h2>{{ related_product.name }}</h2>
-          <p>Rs. {{ related_product.price }}</p>
+      <div class="related-products">
+        <div class="section-header">
+          <hr />
+          <h2>Frequently Bought Together</h2>
         </div>
-        {% endfor %}
+        <div class="grid">
+          {% for related_product in related_products %}
+          <div class="grid-item">
+            <div class="product-gallery">
+              <img
+                src="{{ related_product.images.first.image.url }}"
+                alt="{{ related_product.images.first.alt }}"
+              />
+            </div>
+            <button type="button">
+              <a href="{% url 'products:product' related_product.slug %}">
+                Quick View
+              </a>
+            </button>
+            <h2>{{ related_product.title }}</h2>
+            {% if related_product.on_sale %}
+            <p class="price">
+              <del>Rs. {{ related_product.price }}</del>
+              Rs. {{ related_product.discounted_price }}
+            </p>
+            {% else %}
+            <p class="price">Rs. {{ related_product.price }}</p>
+            {% endif %}
+          </div>
+          {% endfor %}
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  {% endif %}
 </main>
+{% endblock %}
+
+{% block extra_scripts%}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const galleryImages = document.querySelectorAll(".gallery-image");
+    const mainImage = document.querySelector(".image img");
+
+    galleryImages.forEach((img) => {
+      img.addEventListener("click", function () {
+        mainImage.src = this.src;
+        mainImage.alt = this.alt;
+      });
+    });
+  });
+</script>
 {% endblock %}

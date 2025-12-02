@@ -82,7 +82,7 @@
     <ul>
       {% for addr in addresses %}
       <li class="saved-address">
-        <input type="checkbox" {% if addr.default %}checked{% endif %} />
+        <input placeholder="checkbox" type="checkbox" {% if addr.default %}checked{% endif %} />
         <p>
           {{ addr.line1 }}, {{ addr.city }}, {{ addr.country }} {% if addr.default %}<strong>(Default)</strong>{% endif %}
         </p>
@@ -92,6 +92,9 @@
     {% endif %} {% if addresses %}
     <div class="add-new-address">
       <button type="button" id="add-new-address-btn">Add New Address</button>
+      <a href="{% url 'cart:cart_view' %}">
+        <button type="button" id="proceed-to-pay">Back</button>
+      </a>
     </div>
     {% endif %}
   </section>
@@ -108,6 +111,10 @@
         addNewAddressBtn.style.display = "none";
       });
     }
+
+    const proceedToPayBtn = document.getElementById("proceed-to-pay");
+
+    if (proceed)
   });
 </script>
 {% endblock %}

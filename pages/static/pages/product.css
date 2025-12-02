@@ -11,13 +11,44 @@
 
 .product-gallery {
   width: 100%;
+  max-width: 1200px;
   margin: auto;
-  text-align: center;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
 }
 
-.product-gallery img {
+.product-gallery .img-carousel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 100px;
+}
+
+.product-gallery .img-carousel img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 2px solid transparent;
+}
+
+.product-gallery .img-carousel img:hover {
+  border-color: #000;
+  transform: scale(1.05);
+}
+
+.product-gallery .image {
+  flex: 1;
+}
+
+.product-gallery .image img {
   width: 100%;
   height: auto;
+  max-height: 600px;
+  object-fit: contain;
   border-radius: 8px;
 }
 
